@@ -1,0 +1,9 @@
+# Base
+*.sqlite3
+__pycache__
+node_modules
+*.pyc
+
+# Migrations
+**/migrations/*
+!**/migrations/__init__.py
