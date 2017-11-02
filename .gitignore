@@ -7,3 +7,5 @@ node_modules
 # Migrations
 **/migrations/*
 !**/migrations/__init__.py
+.idea/
+dcmpa/
