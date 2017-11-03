@@ -2,8 +2,25 @@ from django.db import models
 from django.utils import timezone
 
 
-# Table to store a missing person case
 class Case(models.Model):
+    """
+    Display an individual case.
+
+    ``person_name``
+        To save name of missing person.
+    ``person_age``
+            To save age of missing person.
+    ``person_address``
+            To save address of missing person
+    ``person_phone``
+            To save phone of missing person
+    ``person_description``
+            To save description of missing person like height, color complexion etc
+    ``missing_date``
+            To save missing date of a person
+    ``last_sighted_date``
+            To save last sighted date of missing person
+    """
     person_name = models.CharField(max_length=100)
     person_age = models.IntegerField()
     person_address = models.CharField(max_length=500)
