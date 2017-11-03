@@ -3,6 +3,7 @@
 __pycache__
 node_modules
 *.pyc
+.vscode
 
 # Migrations
 **/migrations/*
