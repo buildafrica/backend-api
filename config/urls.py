@@ -10,9 +10,7 @@ urlpatterns = [
     # Core
     url(r'^admin/', admin.site.urls),
     url(r'^docs/', include_docs_urls(title='DCMPA')),
-
-    # API (v1)
-    url(r'^api/v1/', include('v1.urls')),
+    url(r'^', include('dcmpa.urls')),    
 
 ]
 

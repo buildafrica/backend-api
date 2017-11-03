@@ -19,6 +19,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
 
+    'dcmpa',
+    'v1'
+
 ]
 
 ALLOWED_HOSTS = []
