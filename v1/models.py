@@ -20,7 +20,7 @@ class Case(models.Model):
             To save missing date of a person
     ``last_sighted_date``
             To save last sighted date of missing person
-    ```person_photo```
+    ``person_photo``
             Field to upload the pic of a missing person
     """
     person_name = models.CharField(max_length=100)
