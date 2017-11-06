@@ -7,4 +7,4 @@ node_modules
 
 # Migrations
 **/migrations/*
-!**/migrations/__init__.py
+**/migrations/__init__.py
