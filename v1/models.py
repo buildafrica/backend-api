@@ -1,11 +1,13 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.utils import timezone
 
 
 class Case(models.Model):
     """
     Display an individual case.
-
+    ``owner``
+        User that opened the case.
     ``person_name``
         To save name of missing person.
     ``person_age``
@@ -23,6 +25,7 @@ class Case(models.Model):
     ``person_photo``
             Field to upload the pic of a missing person
     """
+    owner = models.ForeignKey("UserProfile", related_name="cases_opened")
     person_name = models.CharField(max_length=100)
     person_age = models.IntegerField()
     person_address = models.CharField(max_length=500)
@@ -34,3 +37,13 @@ class Case(models.Model):
 
     def __str__(self):
         return self.person_name + ' - ' + self.missing_date
+
+
+class UserProfile(models.Model):
+    '''
+    This model stores information about site users.
+    Fields like email, names and phone number are captured by the 
+    user object
+    '''
+    user = models.OneToOneField(User)
+
