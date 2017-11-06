@@ -20,6 +20,8 @@ class Case(models.Model):
             To save missing date of a person
     ``last_sighted_date``
             To save last sighted date of missing person
+    ``person_photo``
+            Field to upload the pic of a missing person
     """
     person_name = models.CharField(max_length=100)
     person_age = models.IntegerField()
@@ -28,6 +30,7 @@ class Case(models.Model):
     person_description = models.CharField(max_length=250)
     missing_date = models.DateField(default=timezone.now)
     last_sighted_date = models.DateField()
+    person_photo = models.FileField(null=True, blank=True)
 
     def __str__(self):
         return self.person_name + ' - ' + self.missing_date
