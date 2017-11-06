@@ -54,6 +54,7 @@ class Sighting(models.Model):
     place sighted ,time and date sighted
     '''
     case = models.ForeignKey(Case,on_delete=models.CASCADE)
+    User = models.OneToOneField(UserProfile)
     location_sighted = models.CharField(max_length=256)
     date_sighted = models.DateTimeField()
     additional_info = models.TextField()
