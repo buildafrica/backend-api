@@ -17,7 +17,7 @@ INSTALLED_APPS = [
     # Requirements
     'corsheaders',
     'rest_framework',
-    'rest_framework.authtoken',
+    'rest_framework.authtoken',    
 
     'dcmpa',
     'v1'

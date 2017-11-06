@@ -4,7 +4,7 @@
 - We'd be making use of the <a href="https://www.python.org/dev/peps/pep-0008/" >PEP-8 Style guide</a>.
 - ### Comment Guide :
   - Give brief overviews of what blocks of code are about.
-  - Write about the why, not the how (if the how the code works isn't obvious).
+  - Write about the why, not the how (if how the code works isn't obvious).
   
 
 ## Bugs, Features or Code Changes :

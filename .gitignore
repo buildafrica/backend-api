@@ -7,4 +7,10 @@ node_modules
 
 # Migrations
 **/migrations/*
+<<<<<<< HEAD
 **/migrations/__init__.py
+=======
+!**/migrations/__init__.py
+.idea/
+dcmpa/
+>>>>>>> dev
