@@ -47,3 +47,17 @@ class UserProfile(models.Model):
     '''
     user = models.OneToOneField(User)
 
+class Sighting(models.Model):
+    '''
+    Model for storing sightings for a case 
+    Containing basic info such as the associated case ,
+    place sighted ,time and date sighted
+    '''
+    case = models.ForeignKey(Case,on_delete=models.CASCADE)
+    sighted_by = models.ManyToManyField(UserProfile)
+    location_sighted = models.CharField(max_length=256)
+    date_sighted = models.DateTimeField()
+    additional_info = models.TextField()
+    
+    def __str__(self):
+        return self.case + ' : ' + self.date_sighted
