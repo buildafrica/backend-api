@@ -9,9 +9,10 @@ class CaseSerializer(serializers.ModelSerializer):
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = '__all__'
-        
+        fields = '__all__'        
+
 class SightingSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Sighting
-        fields = '__all__'
+        model = Sighting 
+        fields = ('case','sighted_by','location_sighted','date_sighted','additional_info')
+
