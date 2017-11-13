@@ -6,5 +6,6 @@ from . import views
 
 
 urlpatterns = [    
-    url(r'$', views.index),
+    url(r'^cases/$', views.CaseView.as_view(), name='cases'),
+    url(r'^sightings/$', views.SightingView.as_view(), name='sightings')
 ] 

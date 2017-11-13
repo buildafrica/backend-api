@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Case, UserProfile
+from .models import Case, UserProfile, Sighting
 
 class CaseSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,3 +11,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = UserProfile
         fields = '__all__'
         
+class SightingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Sighting
+        fields = '__all__'
