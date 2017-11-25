@@ -4,6 +4,7 @@ __pycache__
 node_modules
 *.pyc
 .vscode
+*.jpg
 
 # Migrations
 **/migrations/*
