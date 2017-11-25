@@ -1,9 +1,66 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils import timezone
 
+from .managers import CustomUserManager
 
-class Case(models.Model):
+class TimeStampedModel(models.Model):
+    created_at = models.DateTimeField(auto_now_add = True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
+    '''
+    This model stores information about site users.
+    Fields like email, names and phone number are captured by the 
+    user object.
+    TODO:
+    Add different user types i.e law enforcement, normal users etc.
+    '''
+    email = models.CharField(max_length=50, unique=True)
+    first_name = models.CharField(max_length=50, blank=True, null=True)
+    last_name = models.CharField(max_length=50, blank=True, null=True)
+    phone_number = models.CharField(max_length=255,blank=True, null=True)
+    date_of_birth = models.DateField(blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = []
+    objects = CustomUserManager()
+
+    class Meta:
+        verbose_name = "user"
+        verbose_name_plural = "users"
+
+    def get_full_name(self):
+        '''
+        Returns user's full name.
+        '''
+        return self.first_name + " " + self.last_name
+
+    def get_short_name(self):
+        '''
+        Returns user's first name.
+        '''
+        return self.first_name
+
+    def save(self, force_insert=False, force_update=False, *args, **kwargs):
+        '''
+        Extends the save method.
+        '''
+        if not self.email or not self.password:
+            raise ValueError("Users must have both an email address and a password")
+        
+        super(User, self).save(force_insert, force_update, *args, **kwargs)
+
+    def __str__(self):
+        return self.email
+
+
+class Case(TimeStampedModel):
     """
     Display an individual case.
     ``owner``
@@ -28,7 +85,7 @@ class Case(models.Model):
     TODO:
     Add phone number validator
     """
-    owner = models.ForeignKey("UserProfile", related_name="cases_opened")
+    owner = models.ForeignKey("User", related_name="cases_opened")    
     person_name = models.CharField(max_length=100)
     person_age = models.IntegerField()
     person_address = models.CharField(max_length=500)
@@ -41,25 +98,14 @@ class Case(models.Model):
     def __str__(self):
         return self.person_name + ' - ' + self.missing_date
 
-
-class UserProfile(models.Model):
-    '''
-    This model stores information about site users.
-    Fields like email, names and phone number are captured by the 
-    user object.
-    TODO:
-    Add different user types i.e law enforcement, normal users etc.
-    '''
-    user = models.OneToOneField(User)
-
-class Sighting(models.Model):
+class Sighting(TimeStampedModel):
     '''
     Model for storing sightings for a case 
     Containing basic info such as the associated case ,
     place sighted ,time and date sighted
     '''
     case = models.ForeignKey(Case,on_delete=models.CASCADE)
-    sighted_by = models.ManyToManyField(UserProfile)
+    owner = models.ForeignKey("User")
     location_sighted = models.CharField(max_length=256)
     date_sighted = models.DateTimeField()
     additional_info = models.TextField()
