@@ -96,7 +96,7 @@ class Case(TimeStampedModel):
     person_photo = models.FileField(null=True, blank=True)
 
     def __str__(self):
-        return self.person_name + ' - ' + self.missing_date
+        return f"{self.person_name} {self.missing_date}"
 
 class Sighting(TimeStampedModel):
     '''
@@ -111,4 +111,4 @@ class Sighting(TimeStampedModel):
     additional_info = models.TextField()
     
     def __str__(self):
-        return self.case + ' : ' + self.date_sighted
+        return f"{self.case} {self.date_sighted}"
