@@ -14,7 +14,7 @@ olefile==0.45.1
 Pillow==5.2.0
 psycopg2==2.7.5
 Pygments==2.2.0
-pytz==2017.3
+pytz==2018.5
 requests==2.18.4
 sqlparse==0.2.4
 uritemplate==3.0.0
