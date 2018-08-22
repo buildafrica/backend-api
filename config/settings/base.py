@@ -19,7 +19,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',    
 
     'dcmpa',
-    'v1'
+    'v1',
+    'auth'
 
 ]
 
@@ -29,8 +30,6 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
     ),
 }
 
@@ -83,4 +82,4 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-AUTH_USER_MODEL = 'v1.User'
+AUTH_USER_MODEL = 'auth.User'
