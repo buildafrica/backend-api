@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 FROM python:3.6
-=======
-FROM python:3.6-slim
->>>>>>> master
 
 LABEL maintainer="subomioluwalana71@gmail.com"
 
