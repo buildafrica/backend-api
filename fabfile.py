@@ -37,6 +37,21 @@ def run_container():
     pass
 
 @task 
+def setup_aws_creds():
+    creds = {
+        "AWS_ACCESS_KEY_ID": os.environ["AWS_ACCESS_KEY_ID"],
+        "AWS_SECRET_ACCESS_KEY": os.environ["AWS_SECRET_ACCESS_KEY"] 
+    }
+
+    for cred in creds:
+        command = "export" + cred + "=" + creds[cred]
+        with settings(warn_only=True):
+            cmdExec = run(command)
+
+            if cmdExec.succeeded:
+                print(cred, " successfully setup on ec2 instance.")
+
+@task 
 def authenticate_docker():
     count = 0
     command = "eval $(aws ecr get-login --region us-west-2 --no-include-email)"
