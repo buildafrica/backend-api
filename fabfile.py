@@ -7,7 +7,7 @@ env.colorize_errors = True
 env.key_filename = "./aws-keys.pem"
 
 @task
-def generate_new_keys():
+def generate_new_ssh_keys():
     pass
 
 @task
@@ -28,12 +28,12 @@ def setup_docker():
 
 @task
 def pull_image():
-    commands = "docker pull "
-    result = run("uname -s")
-    print(result.stdout.strip())
+    command = "docker pull 496397425809.dkr.ecr.us-west-2.amazonaws.com/mpa-staging:latest"
+    result = run(command)
 
 @task
 def run_container():
+    command = "docker run -d -p 80:8080 496397425809.dkr.ecr.us-west-2.amazonaws.com/mpa-staging:latest"
     pass
 
 @task 
