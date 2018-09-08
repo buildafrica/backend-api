@@ -5,6 +5,9 @@ language: python
 services:
     - docker
 
+before_install:
+    - pip install awscli --upgrade
+
 script: 
     - docker build -t mpa-staging --build-arg env=$DCMPA_ENVIRONMENT --build-arg name=$POSTGRES_DB_NAME --build-arg user=$POSTGRES_DB_USER  --build-arg passwd=$POSTGRES_USER_PASSWORD .
     - docker tag mpa-staging:latest 496397425809.dkr.ecr.us-west-2.amazonaws.com/mpa-staging:latest
@@ -12,3 +15,5 @@ script:
 after_success:
     - eval $(aws ecr get-login --region us-west-2 --no-include-email) 
     - docker push 496397425809.dkr.ecr.us-west-2.amazonaws.com/mpa-staging:latest
+    - fab setup_docker authenticate_docker
+    - fab pull_image run_container
