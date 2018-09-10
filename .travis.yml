@@ -11,20 +11,23 @@ env:
     - DOCKER_REPO=mpa
     - DOCKER_ECR_URI=496397425809.dkr.ecr.us-west-2.amazonaws.com
 
-before_install:
-    - pip3 install awscli --upgrade
-    # TODO - see below
-    # - pip3 install fabric3
+jobs:
+    - include:
+        - stage: "Build"
+          name: "Install"
+          script: 
+            - pip3 install awscli --upgrade
+            # - pip3 install fabric3
+        - name: "Build"
+        - script:
+        - docker build -t mpa --build-arg env=$DCMPA_ENVIRONMENT --build-arg name=$POSTGRES_DB_NAME --build-arg user=$POSTGRES_DB_USER  --build-arg passwd=$POSTGRES_USER_PASSWORD .
+        - docker tag mpa:latest 496397425809.dkr.ecr.us-west-2.amazonaws.com/mpa:latest 
+        - stage: "Deploy"
+        if: commit_message =~ /deploy/
+          script:
+        - eval $(aws ecr get-login --region us-west-2 --no-include-email) 
+        - docker push 496397425809.dkr.ecr.us-west-2.amazonaws.com/mpa:latest
 
-script: 
-    - docker build -t mpa --build-arg env=$DCMPA_ENVIRONMENT --build-arg name=$POSTGRES_DB_NAME --build-arg user=$POSTGRES_DB_USER  --build-arg passwd=$POSTGRES_USER_PASSWORD .
-    - docker tag mpa:latest 496397425809.dkr.ecr.us-west-2.amazonaws.com/mpa:latest
-
-after_success:
-    if: commit_message =~ /deploy/
-    - eval $(aws ecr get-login --region us-west-2 --no-include-email) 
-    - docker push 496397425809.dkr.ecr.us-west-2.amazonaws.com/mpa:latest
-
-    # TODO: Encrypt ssh-keys into the git and use them in travis.
-    # - fab setup_docker setup_aws_creds
-    # - fab authenticate_docker pull_image run_container
+        # TODO: Encrypt ssh-keys into the git and use them in travis.
+        # - fab setup_docker setup_aws_creds
+        # - fab authenticate_docker pull_image run_container
