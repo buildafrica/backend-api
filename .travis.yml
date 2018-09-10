@@ -11,10 +11,6 @@ env:
     - DOCKER_REPO=mpa
     - DOCKER_ECR_URI=496397425809.dkr.ecr.us-west-2.amazonaws.com
 
-branches:
-    only:
-        - master
-
 before_install:
     - pip3 install awscli --upgrade
     # TODO - see below
