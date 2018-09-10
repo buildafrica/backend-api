@@ -6,6 +6,7 @@ env.user = "ec2-user"
 env.colorize_errors = True
 env.key_filename = "./aws-keys.pem"
 
+# TODO: To replace aws-keys.pem for extra security.
 @task
 def generate_new_ssh_keys():
     pass
@@ -25,16 +26,15 @@ def setup_docker():
         
         print("Docker successfully installed.")
 
-
 @task
 def pull_image():
-    command = "docker pull 496397425809.dkr.ecr.us-west-2.amazonaws.com/mpa-staging:latest"
+    command = "docker pull 496397425809.dkr.ecr.us-west-2.amazonaws.com/mpa:latest"
     result = run(command)
 
 @task
 def run_container():
-    command = "docker run -d -p 80:8080 496397425809.dkr.ecr.us-west-2.amazonaws.com/mpa-staging:latest"
-    pass
+    command = "docker run -d -p 80:8080 496397425809.dkr.ecr.us-west-2.amazonaws.com/mpa"
+    result = run(command)
 
 @task 
 def setup_aws_creds():
@@ -44,7 +44,7 @@ def setup_aws_creds():
     }
 
     for cred in creds:
-        command = "export" + cred + "=" + creds[cred]
+        command = "echo \"export " + cred + "=" + creds[cred] + "\" >> .bashrc"
         with settings(warn_only=True):
             cmdExec = run(command)
 
