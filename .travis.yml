@@ -10,13 +10,11 @@ services:
 
 jobs:
     include:
-        - stage: "Install"
-          script: ".travis/install.sh"
-        - stage: "Build"
-          script: ".travis/build.sh" 
+        - stage: "Test"
+          script: ".travis/test.sh" 
         - stage: "Deploy"
           script: ".travis/deploy.sh"
-          if: commit_message =~ /deploy/
+          if: commit_message =~ /deploy/ AND (sender IN (subomi))
 
         # TODO: Encrypt ssh-keys into the git and use them in travis.
         # - fab setup_docker setup_aws_creds
