@@ -6,11 +6,7 @@ python:
 
 services:
     - docker
-  
-env:
-    - DOCKER_REPO=mpa
-    - DOCKER_ECR_URI=496397425809.dkr.ecr.us-west-2.amazonaws.com
-    - MATRIX=IDIOT
+
 
 jobs:
     include:
