@@ -13,7 +13,6 @@ env:
 
 before_install:
     - pip3 install awscli --upgrade
-    
     # TODO - see below
     # - pip3 install fabric3
 
