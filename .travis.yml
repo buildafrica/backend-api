@@ -7,6 +7,9 @@ python:
 services:
     - docker
 
+branches:
+    only:
+        - master
 
 jobs:
     include:
