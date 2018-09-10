@@ -17,6 +17,7 @@ jobs:
           script: ".travis/test.sh" 
         - stage: "Deploy"
           script: ".travis/deploy.sh"
+            # Might simply replaces this with if master push!
           if: (commit_message =~ /deploy/) AND (sender IN (Subomi, Chibuzor-IN))
 
         # TODO: Encrypt ssh-keys into the git and use them in travis.
