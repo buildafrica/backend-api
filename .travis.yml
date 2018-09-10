@@ -11,6 +11,10 @@ env:
     - DOCKER_REPO=mpa
     - DOCKER_ECR_URI=496397425809.dkr.ecr.us-west-2.amazonaws.com
 
+branches:
+    only:
+        - master
+
 before_install:
     - pip3 install awscli --upgrade
     
@@ -22,6 +26,7 @@ script:
     - docker tag mpa:latest 496397425809.dkr.ecr.us-west-2.amazonaws.com/mpa:latest
 
 after_success:
+    if: commit_message !~ /no-deploy/
     - eval $(aws ecr get-login --region us-west-2 --no-include-email) 
     - docker push 496397425809.dkr.ecr.us-west-2.amazonaws.com/mpa:latest
 
