@@ -21,4 +21,3 @@ jobs:
         # TODO: Encrypt ssh-keys into the git and use them in travis.
         # - fab setup_docker setup_aws_creds
         # - fab authenticate_docker pull_image run_container
-
