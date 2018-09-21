@@ -19,8 +19,6 @@ jobs:
           script: ".travis/deploy.sh"
           if: branch = master
 
-        # Add additional conditions
-        
 
         # TODO: Encrypt ssh-keys into the git and use them in travis.
         # - fab setup_docker setup_aws_creds
