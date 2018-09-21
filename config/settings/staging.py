@@ -13,10 +13,13 @@ DATABASES = {
         'NAME': os.environ['POSTGRES_DB_NAME'],
         'USER': os.environ['POSTGRES_DB_USER'],
         'PASSWORD': os.environ['POSTGRES_USER_PASSWORD'],
-        'HOST': 'postgreslocalhost', 
+        'HOST': 'ec2-50-17-194-186.compute-1.amazonaws.com', 
         'PORT': '5432',
+        'TEST': {
+            'NAME': os.environ['POSTGRES_DB_NAME']
         }
     }
+}
 
 INSTALLED_APPS.append('debug_toolbar')
 

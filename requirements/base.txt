@@ -5,6 +5,7 @@ coreschema==0.0.4
 Django==1.11.4
 django-cors-headers==2.0.2
 djangorestframework==3.6.3
+djangorestframework-jwt==1.11.0
 idna==2.6
 itypes==1.1.0
 Jinja2==2.9.6
