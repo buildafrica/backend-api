@@ -24,3 +24,7 @@ Provide values for the following environment variables:
 ```
 python manage.py runserver
 ```
+
+## Deployment
+- master branch:- staging branch
+- production branch:- production branch; production will be tagged on each merge to show backend versioning.
