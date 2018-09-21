@@ -1,0 +1,51 @@
+0000000000000000000000000000000000000000 9fd7b17eaadaf5ebca94d5db6e232097f4fc7050 subomi <subomi.oluwalana@yahoo.com> 1535293629 +0100	branch: Created from HEAD
+9fd7b17eaadaf5ebca94d5db6e232097f4fc7050 894dfa05c9cc40151f057ba631d92ebbe52003b7 subomi <subomi.oluwalana@yahoo.com> 1535640550 +0100	commit: ci-process-1
+894dfa05c9cc40151f057ba631d92ebbe52003b7 a90495e0b288440efb969921464a497234f97b19 subomi <subomi.oluwalana@yahoo.com> 1535645427 +0100	commit: removed add-host bug
+a90495e0b288440efb969921464a497234f97b19 2347bb6dbb240f103eedabaac066fed107e9501c subomi <subomi.oluwalana@yahoo.com> 1535645962 +0100	commit (merge): conflicts resolved
+2347bb6dbb240f103eedabaac066fed107e9501c 70a31e7ed85b2bdca13948a1e1f9a3d7750906d6 subomi <subomi.oluwalana@yahoo.com> 1535646169 +0100	commit: conflicts resolved - vscode issues
+70a31e7ed85b2bdca13948a1e1f9a3d7750906d6 ad4f5ecab78f19684389770b239196fed94a7259 subomi <subomi.oluwalana@yahoo.com> 1535646721 +0100	commit: staging env
+ad4f5ecab78f19684389770b239196fed94a7259 9ed4888449ce80b72a11329181f107422af90f44 subomi <subomi.oluwalana@yahoo.com> 1535711663 +0100	commit: new postgres
+9ed4888449ce80b72a11329181f107422af90f44 d84981531a9373ae9fd69803ce3c7964dc02d3ed subomi <subomi.oluwalana@yahoo.com> 1535711923 +0100	commit (merge): resolved conflict
+d84981531a9373ae9fd69803ce3c7964dc02d3ed d7aba1983f08e0c608f65042018600a30beffffd subomi <subomi.oluwalana@yahoo.com> 1535715775 +0100	commit: changed the test db to match the default due to Heroku Postgres issues
+d7aba1983f08e0c608f65042018600a30beffffd ec5c1b3c07b861f6b98e6d5847ef6fd7527a6f8a subomi <subomi.oluwalana@yahoo.com> 1536409989 +0100	commit: added install awscli & fabfile
+ec5c1b3c07b861f6b98e6d5847ef6fd7527a6f8a d05299fe66c1f481e9e7b5ddad26939da95e34a9 subomi <subomi.oluwalana@yahoo.com> 1536412564 +0100	commit: setup aws creds
+d05299fe66c1f481e9e7b5ddad26939da95e34a9 8fa06507d4e43ef29fdde89ce8deba2ae65bd009 subomi <subomi.oluwalana@yahoo.com> 1536412814 +0100	pull: Fast-forward
+8fa06507d4e43ef29fdde89ce8deba2ae65bd009 5fb0c647607865478f3c50c289e2fc5e254b430d subomi <subomi.oluwalana@yahoo.com> 1536413315 +0100	commit: added python version
+5fb0c647607865478f3c50c289e2fc5e254b430d 2fbf626208418adf9cf9b9d4cbcfae8a62e0f29f subomi <subomi.oluwalana@yahoo.com> 1536413391 +0100	commit: added python version
+2fbf626208418adf9cf9b9d4cbcfae8a62e0f29f 0140438f512c739e1a6281203d1d37f7a005e6b4 subomi <subomi.oluwalana@yahoo.com> 1536413569 +0100	commit (merge): Fixed merge conflict
+0140438f512c739e1a6281203d1d37f7a005e6b4 c20ff2865883e591268243a7f6de0d948f91da42 subomi <subomi.oluwalana@yahoo.com> 1536416899 +0100	commit: minor changes
+c20ff2865883e591268243a7f6de0d948f91da42 1f04645a170ec29c765fbdea557c3f91344cbf85 subomi <subomi.oluwalana@yahoo.com> 1536417020 +0100	commit (merge): Merge conflict fixed
+1f04645a170ec29c765fbdea557c3f91344cbf85 d1d2dc7de48957ef2527605c8e9ab9e1366afa5d subomi <subomi.oluwalana@yahoo.com> 1536417497 +0100	commit: install the right fabric
+d1d2dc7de48957ef2527605c8e9ab9e1366afa5d e9be4b9e46c2d2eb31129627c76ca5b2046a4d23 subomi <subomi.oluwalana@yahoo.com> 1536417629 +0100	pull: Fast-forward
+e9be4b9e46c2d2eb31129627c76ca5b2046a4d23 ef07756b28977c99ce7f06f5194c92a9826295ab subomi <subomi.oluwalana@yahoo.com> 1536579296 +0100	commit: ci works
+ef07756b28977c99ce7f06f5194c92a9826295ab 4b58685c311f624f7b11bc0ffda09f995ab056d1 subomi <subomi.oluwalana@yahoo.com> 1536582358 +0100	commit: trying conditionals
+4b58685c311f624f7b11bc0ffda09f995ab056d1 e85e2c687dfd72ce3cbac7193a2052dae0df8399 subomi <subomi.oluwalana@yahoo.com> 1536582394 +0100	pull: Merge made by the 'recursive' strategy.
+e85e2c687dfd72ce3cbac7193a2052dae0df8399 f1deab231e9546a205c569d2c6e356cf28317de7 subomi <subomi.oluwalana@yahoo.com> 1536582918 +0100	commit: change travis conditions
+f1deab231e9546a205c569d2c6e356cf28317de7 7c05208f1f8ee9f421d3007d06a09f58f5235a19 subomi <subomi.oluwalana@yahoo.com> 1536583063 +0100	commit: remove branch instructions
+7c05208f1f8ee9f421d3007d06a09f58f5235a19 180ad9813899dd1313bf74131426ab43e0dc8d2e subomi <subomi.oluwalana@yahoo.com> 1536584078 +0100	commit: remove safelist
+180ad9813899dd1313bf74131426ab43e0dc8d2e 18e56699feeb56fac971faa4320e48f4e1dcf761 subomi <subomi.oluwalana@yahoo.com> 1536585972 +0100	commit: build stages
+18e56699feeb56fac971faa4320e48f4e1dcf761 a131c1d616f17c79098139d8b8b3482e405d1509 subomi <subomi.oluwalana@yahoo.com> 1536588934 +0100	commit (merge): resolved conflicts
+a131c1d616f17c79098139d8b8b3482e405d1509 bf4241940b3ce41af5b8620dc24cf843ff68c69f subomi <subomi.oluwalana@yahoo.com> 1536589070 +0100	pull: Fast-forward
+bf4241940b3ce41af5b8620dc24cf843ff68c69f 4965dbc1a9255e44c871e92991e10a312d768cfc subomi <subomi.oluwalana@yahoo.com> 1536590433 +0100	commit: travis yml edit
+4965dbc1a9255e44c871e92991e10a312d768cfc 10eb20b71f216d9e4847988b25d1ad8a567172c3 subomi <subomi.oluwalana@yahoo.com> 1536590925 +0100	commit: travis yml edit
+10eb20b71f216d9e4847988b25d1ad8a567172c3 0561981355e9bbe8ce8f56b448fce890aaa6c35e subomi <subomi.oluwalana@yahoo.com> 1536590959 +0100	pull: Merge made by the 'recursive' strategy.
+0561981355e9bbe8ce8f56b448fce890aaa6c35e 826d72f67fa3811f2ca30878fa10bda93a89286f subomi <subomi.oluwalana@yahoo.com> 1536591426 +0100	commit: travis folder
+826d72f67fa3811f2ca30878fa10bda93a89286f 975e7923fb986eff346655d42d83c4d6994f99b1 subomi <subomi.oluwalana@yahoo.com> 1536591469 +0100	commit (merge): resolved conflicts
+975e7923fb986eff346655d42d83c4d6994f99b1 69373882ff0562f4ec90fb4639612d6b9c64fe99 subomi <subomi.oluwalana@yahoo.com> 1536592013 +0100	commit: remove env
+69373882ff0562f4ec90fb4639612d6b9c64fe99 6d0f0ba8352ed936008ff53eab8172f9d20a0105 subomi <subomi.oluwalana@yahoo.com> 1536592022 +0100	pull: Merge made by the 'recursive' strategy.
+6d0f0ba8352ed936008ff53eab8172f9d20a0105 3a39ebcc3e986556895fe572d1faa232d221b493 subomi <subomi.oluwalana@yahoo.com> 1536592617 +0100	commit: change permissions
+3a39ebcc3e986556895fe572d1faa232d221b493 8d391b8d45bbeb5bbd34deea6d1ebd4160d96d22 subomi <subomi.oluwalana@yahoo.com> 1536593326 +0100	commit: fix travis build
+8d391b8d45bbeb5bbd34deea6d1ebd4160d96d22 ac3ac30358f27fe16c6ace9e01e41fbbf4076c49 subomi <subomi.oluwalana@yahoo.com> 1536594420 +0100	commit: changed travis:
+ac3ac30358f27fe16c6ace9e01e41fbbf4076c49 1fea7d0a25bde1ec7fa43df61389191bdf791f2f subomi <subomi.oluwalana@yahoo.com> 1536594533 +0100	commit (merge): resolved conflicts
+1fea7d0a25bde1ec7fa43df61389191bdf791f2f 566ad1938476aa8ac16e1ef11331aee35d972ee6 subomi <subomi.oluwalana@yahoo.com> 1536594605 +0100	commit: name correction
+566ad1938476aa8ac16e1ef11331aee35d972ee6 2cc03361e3bcc2d29fd9085e60ae220ea599cf30 subomi <subomi.oluwalana@yahoo.com> 1536594802 +0100	commit (merge): resolved conflict
+2cc03361e3bcc2d29fd9085e60ae220ea599cf30 c0346811ff76f80d306dedefe1f1df42a50a2041 subomi <subomi.oluwalana@yahoo.com> 1536594975 +0100	commit: fix bug in travis file
+c0346811ff76f80d306dedefe1f1df42a50a2041 0c7da8300a33607b2c3ffcb5ba4fcfc6d54e72a9 subomi <subomi.oluwalana@yahoo.com> 1536595171 +0100	commit: fix bug in travis file 2
+0c7da8300a33607b2c3ffcb5ba4fcfc6d54e72a9 179c7fe60d4bfccad0066e8aed410272e6ab1388 subomi <subomi.oluwalana@yahoo.com> 1536595184 +0100	pull: Merge made by the 'recursive' strategy.
+179c7fe60d4bfccad0066e8aed410272e6ab1388 6875d278cec5a14b3c11056fa0b4fd800fd02816 subomi <subomi.oluwalana@yahoo.com> 1536595830 +0100	pull: Fast-forward
+6875d278cec5a14b3c11056fa0b4fd800fd02816 663e6d5307275af034089e14a5e6abc9838486e5 subomi <subomi.oluwalana@yahoo.com> 1536595859 +0100	commit: add chibuzor
+663e6d5307275af034089e14a5e6abc9838486e5 bf77796ae05545945afba1ee190c90827a2ccca5 subomi <subomi.oluwalana@yahoo.com> 1536616318 +0100	commit: trying master only build
+bf77796ae05545945afba1ee190c90827a2ccca5 ead7d8ebf1a187053c0ba816dda4afaef6591e76 subomi <subomi.oluwalana@yahoo.com> 1536616499 +0100	pull: Fast-forward
+ead7d8ebf1a187053c0ba816dda4afaef6591e76 9a01f24e6c516883a4da9e05ecc8683f1f01f37c subomi <subomi.oluwalana@yahoo.com> 1536616741 +0100	commit: testing build on push only master
+9a01f24e6c516883a4da9e05ecc8683f1f01f37c e07fd4971d20987f5517d2b3f04fb440bd0bedc0 subomi <subomi.oluwalana@yahoo.com> 1536617901 +0100	commit: deploy based only on merge to master
+e07fd4971d20987f5517d2b3f04fb440bd0bedc0 7716499851f4ddba5a9717b5eb80cae2ca3955b3 subomi <subomi.oluwalana@yahoo.com> 1536617919 +0100	pull: Merge made by the 'recursive' strategy.
