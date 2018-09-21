@@ -1,3 +1,0 @@
-0000000000000000000000000000000000000000 9fd7b17eaadaf5ebca94d5db6e232097f4fc7050 subomi <subomi.oluwalana@yahoo.com> 1534478939 +0100	branch: Created from HEAD
-9fd7b17eaadaf5ebca94d5db6e232097f4fc7050 f78f0890ee8c791c2521700a4092708c3ce68de9 subomi <subomi.oluwalana@yahoo.com> 1534526576 +0100	commit: startapp auth
-f78f0890ee8c791c2521700a4092708c3ce68de9 561d68074a49022a801efb88c84938ea0228e92e subomi <subomi.oluwalana@yahoo.com> 1534936177 +0100	commit: Models, Serializers on Auth
