@@ -1,7 +1,9 @@
 from django.db import models
 from django.core.validators import RegexValidator
 from django.contrib.auth import get_user_model
-from auth.models import BaseModel
+
+from Authorization.models import BaseModel
+from .managers import ProfilesManager
 
 # Create your models here.
 class Profiles(BaseModel):
@@ -15,3 +17,5 @@ class Profiles(BaseModel):
     date_of_birth = models.DateField(null=True)
     is_email_verified = models.BooleanField(default=False)
     profile_pic = models.URLField(null=True)
+
+    customprofileManager = ProfilesManager

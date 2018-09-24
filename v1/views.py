@@ -1,6 +1,6 @@
 from rest_framework import generics, permissions
 
-from .models import Case, Sighting, User
+from .models import Case, Sighting
 from .serializers import CaseSerializer, SightingSerializer
 from .permissions import IsOwnerOrReadOnly
 
