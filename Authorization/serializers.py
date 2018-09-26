@@ -22,3 +22,9 @@ class RegistrationSerializerMixin(object):
     def is_valid(self):
         return True if (self.user.is_valid() and self.profile.is_valid()) else False
     
+
+class ConfirmEmailSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = get_user_model()
+        fields = ("username", "activation_key")

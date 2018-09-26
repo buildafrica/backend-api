@@ -9,9 +9,10 @@ from django.core.exceptions import ValidationError
 from rest_framework import status
 from rest_framework.views import APIView
 
-from .serializers import RegistrationSerializerMixin
+from .serializers import RegistrationSerializerMixin, ConfirmEmailSerializer
 from .responseHelper import ResponseHelper, StatusCodes
 from .EmailHelper import EmailHelper
+from .mixins import UserObjectsMixin
 
 from profiles.models import Profiles
 
@@ -39,10 +40,10 @@ class AuthMisc:
 
 
     @classmethod
-    def generate_confirmation_link(cls, activation_key):
+    def generate_confirmation_link(cls, username, activation_key):
         confirmation_link_url = reverse("pages-confirm-email")
         domain = get_current_site(request).domain
-        full_site_confirmation_link = '%s://%s%s?key=%s'%(request.scheme, domain, confirmation_link_url, activation_key)
+        full_site_confirmation_link = '%s://%s%s/%s/%s'%(request.scheme, domain, confirmation_link_url, username, activation_key)
         
         return full_site_confirmation_link
 
@@ -87,7 +88,7 @@ class AuthRegistration(APIView):
         except (ValidationError, Exception) as e:
             return get_api_server_error()
 
-        confirmation_link = AuthMisc.generate_confirmation_link(activation_key)
+        confirmation_link = AuthMisc.generate_confirmation_link(username, activation_key)
 
         try:
             EmailHelper.send_signup_mail(user.email, profile.first_name, confirmation_link) 
@@ -96,18 +97,52 @@ class AuthRegistration(APIView):
 
         return get_api_success()
 
-        
-class AuthDetail(APIView):
-    """ Retrieve, update and delete a user """
-
     """ Delete a User """
     def delete(self, request, format=None):
         pass
 
-class AuthConfirmEmail(APIView):
+class AuthConfirmEmail(UserObjectsMixin, APIView):
+    '''
+    - Check if user exists
+        - else return error
+    - Check Key type == confirmation
+        - else return error
+    - Check if Check Match 
+        - else return error
+    - Check if isNotExpired == true and key_used == false
+        - else return error
+    - Set email_verified = true
+    - Set key_used = true
+    - return Success.
+    '''
 
     def put(self, request, format=None):
-        return get_api_server_error()
+        serializer = ConfirmEmailSerializer(data=request.data)
+
+        if not serializer.is_valid():
+            return get_api_response(StatusCodes.Invalid_Field, errors=serializer.errors, httpStatusCode=status.HTTP_400_BAD_REQUEST)
+
+        user_model = self.get_user_by_username(serializer.validated_data["username"])
+        if isinstance(user_model, Exception):
+            return get_api_response(StatusCodes.Does_Not_Exist, httpStatusCode=status.HTTP_400_BAD_REQUEST)
+
+        if user_model.email_verified
+            return get_api_response(StatusCodes.User_Already_Verified, httpStatusCode=status.HTTP_400_BAD_REQUEST)
+
+        if not user_model.activation_key_type == AuthMisc.IS_PROFILE_ACTIVATION_KEY:
+            return get_api_response(StatusCodes.Invalid_Field, httpStatusCode=status.HTTP_400_BAD_REQUEST)
+        
+        if not user_model.activation_key === serializer.validated_data["activation_key"]:
+            return get_api_response(StatusCodes.Invalid_Activation_Key, httpStatusCode=status.HTTP_400_BAD_REQUEST)
+        
+        if timezone.now > user_model.activation_key_expires:
+            return get_api_response(StatusCodes.Activation_Key_Expired, httpStatusCode=status.HTTP_400_BAD_REQUEST)
+
+        user_model.email_verified = True
+        user_model.activation_key_used = True
+        user_model.save()
+
+        return get_api_success()
 
 class AuthResendConfirmationEmail(APIView):
 

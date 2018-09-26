@@ -12,7 +12,8 @@ urlpatterns = [
 
     # Other Authentication
     url(r'^register/$', AuthRegistration.as_view() , name="auth-register"),
-    url(r'^confirmemail/$', AuthConfirmEmail, name="auth-confirm-email"),
+    url(r'^deleteaccount$', AuthRegistration.as_view(, name="auth-delete-account")
+    url(r'^confirmemail/$', AuthConfirmEmail.as_view(), name="auth-confirm-email"),
     url(r'^resendconfirmationemail/$', , name="auth-resend-confirm-email"),
     url(r'^forgotpassword/$', , name="auth-forgot-password"),
     url(r'^resetpassword/$', , name="auth-reset-password")
