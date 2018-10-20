@@ -7,6 +7,11 @@
   - Write about the why, not the how (if how the code works isn't obvious).
   
 
+## Pull Requests
+- Refer to the Pull Requests guideline when making a PR
+- Always push all PRs to the `dev` branch
+
+
 ## Bugs, Features or Code Changes :
 - In the case of fixing reported bugs, reference the issue number in the commit message
 - If the bug is undocumented, describe the bug in the commit message
