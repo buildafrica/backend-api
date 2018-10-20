@@ -2,6 +2,8 @@ certifi==2018.10.15
 chardet==3.0.4
 coreapi==2.3.3
 coreschema==0.0.4
+djangorestframework-jwt==1.11.0
+idna==2.6
 djangorestframework==3.9.0
 django-cors-headers==2.4.0
 Django==2.1.2

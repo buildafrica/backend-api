@@ -3,7 +3,12 @@
 __pycache__
 node_modules
 *.pyc
+.vscode
+*.jpg
+*.pem
 
 # Migrations
 **/migrations/*
-!**/migrations/__init__.py
+**/migrations/__init__.py
+.idea/
+dcmpa/
