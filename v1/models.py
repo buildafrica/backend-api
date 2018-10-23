@@ -14,7 +14,7 @@ class TimeStampedModel(models.Model):
 class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
     '''
     This model stores information about site users.
-    Fields like email, names and phone number are captured by the 
+    Fields like email, names and phone number are captured by the
     user object.
     TODO:
     Add different user types i.e law enforcement, normal users etc.
@@ -53,7 +53,7 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
         '''
         if not self.email or not self.password:
             raise ValueError("Users must have both an email address and a password")
-        
+
         super(User, self).save(force_insert, force_update, *args, **kwargs)
 
     def __str__(self):
@@ -85,7 +85,7 @@ class Case(TimeStampedModel):
     TODO:
     Add phone number validator
     """
-    owner = models.ForeignKey("User", related_name="cases_opened")    
+    owner = models.ForeignKey("User", related_name="cases_opened", on_delete=models.CASCADE)
     person_name = models.CharField(max_length=100)
     person_age = models.IntegerField()
     person_address = models.CharField(max_length=500)
@@ -100,15 +100,15 @@ class Case(TimeStampedModel):
 
 class Sighting(TimeStampedModel):
     '''
-    Model for storing sightings for a case 
+    Model for storing sightings for a case
     Containing basic info such as the associated case ,
     place sighted ,time and date sighted
     '''
     case = models.ForeignKey(Case,on_delete=models.CASCADE)
-    owner = models.ForeignKey("User")
+    owner = models.ForeignKey("User", on_delete=models.CASCADE)
     location_sighted = models.CharField(max_length=256)
     date_sighted = models.DateTimeField()
     additional_info = models.TextField()
-    
+
     def __str__(self):
         return f"{self.case} {self.date_sighted}"
