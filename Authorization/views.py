@@ -126,13 +126,13 @@ class AuthConfirmEmail(UserObjectsMixin, APIView):
         if isinstance(user_model, Exception):
             return get_api_response(StatusCodes.Does_Not_Exist, httpStatusCode=status.HTTP_400_BAD_REQUEST)
 
-        if user_model.email_verified
+        if user_model.email_verified:
             return get_api_response(StatusCodes.User_Already_Verified, httpStatusCode=status.HTTP_400_BAD_REQUEST)
 
         if not user_model.activation_key_type == AuthMisc.IS_PROFILE_ACTIVATION_KEY:
             return get_api_response(StatusCodes.Invalid_Field, httpStatusCode=status.HTTP_400_BAD_REQUEST)
         
-        if not user_model.activation_key === serializer.validated_data["activation_key"]:
+        if not user_model.activation_key == serializer.validated_data["activation_key"]:
             return get_api_response(StatusCodes.Invalid_Activation_Key, httpStatusCode=status.HTTP_400_BAD_REQUEST)
         
         if timezone.now > user_model.activation_key_expires:
