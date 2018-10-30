@@ -18,15 +18,16 @@ class AuthEmailHelper:
     __path = os.path.dirname(os.path.abspath(__file__)) + '/' +  __templateFolder 
     
     def __init__(self):
+        self.files = {}
         for emailtype in range(1, 3):
             filename = EmailFileNames[emailtype]
-            file = open(AuthEmailHelper.__path + filename,'r').read()
-            self[filename.split(".")[0]] = file.read()
+            file = open(AuthEmailHelper.__path + filename,'r')
+            self.files[emailtype] = file.read()
             file.close()
 
     def send_signup_mail(self, email, firstname, activation_link): 
         try:
-            message = self.signup.replace("[[firstname]]",firstname).replace("[[activationLink]]", activation_link)
+            message = self.files[AuthEmailTypes.Signup].replace("[[firstname]]",firstname).replace("[[activationLink]]", activation_link)
             from_email = settings.SIGN_UP_FROM_EMAIL
             subject = settings.SIGN_UP_MAIL_SUBJECT
             send_mail(subject=subject, message=message, from_email=from_email,recipient_list=[email], html_message=message)
@@ -35,7 +36,7 @@ class AuthEmailHelper:
 
     def send_reset_password_mail(self, email, firstname, reset_link): 
         try:
-            message = self.resetPassword.replace("[[firstname]]", firstname).replace("[[activationLink]]", reset_link)
+            message = self.files[AuthEmailTypes.Reset_Password].replace("[[firstname]]", firstname).replace("[[activationLink]]", reset_link)
             from_email = settings.RESET_PASSWORD_FROM_EMAIL
             subject = settings.RESET_PASSWORD_MAIL_SUBJECT
             send_mail(subject=subject, message=message, from_email=from_email,recipient_list=[email], html_message=message)

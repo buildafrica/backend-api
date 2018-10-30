@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
-from .views import AuthMisc
+from .misc import AuthMisc
 
 def validate_activation_key_type(value):
     """

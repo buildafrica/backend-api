@@ -1,4 +1,4 @@
-import secrets
+from django.conf import settings
 from django.shortcuts import render
 from django.urls import reverse
 from django.utils import timezone
@@ -9,51 +9,28 @@ from django.core.exceptions import ValidationError
 from rest_framework import status
 from rest_framework.views import APIView
 
-from .serializers import RegistrationSerializerMixin, ConfirmEmailSerializer
+from .serializers import ( RegistrationSerializer, ConfirmEmailSerializer, ResendConfirmEmailSerializer,
+                        ForgotPasswordSerializer, ChangePasswordSerializer )
 from .responseHelper import ResponseHelper, StatusCodes
 from .EmailHelper import EmailHelper
 from .mixins import UserObjectsMixin
+from .misc import AuthMisc
 
 from profiles.models import Profiles
 
 get_api_response = ResponseHelper.get_api_response
 get_api_server_error = ResponseHelper.api_server_error
 get_api_success = ResponseHelper.api_success
+get_400_error = ResponseHelper.api_400_error
 User = get_user_model()
-
-class AuthMisc:
-    token_length = 32
-    IS_PROFILE_ACTIVATION_KEY = 1
-    IS_FORGOT_PASSWORD = 2
-    IS_RESET_PASSWORD_KEY = 3
-    KEY_EXPIRATION_TIME = 1  # Key expires in 1 day.
-
-    @classmethod
-    def generate_and_set_activation_key(cls, user, key_type=None):
-        activation_key = secrets.token_urlsafe(cls.token_length)
-        user.activation_key = activation_key
-        user.activation_key_expires = timezone.now() + timezone.timedelta(days=cls.KEY_EXPIRATION_TIME)
-        user.activation_key_type = key_type
-        user.save()
-        
-        return activation_key
-
-
-    @classmethod
-    def generate_confirmation_link(cls, username, activation_key):
-        confirmation_link_url = reverse("pages-confirm-email")
-        domain = get_current_site(request).domain
-        full_site_confirmation_link = '%s://%s%s/%s/%s'%(request.scheme, domain, confirmation_link_url, username, activation_key)
-        
-        return full_site_confirmation_link
-
-
 
 # Create your views here.
 class AuthRegistration(APIView):
     """ Get or Create a user """
+    authentication_classes = ()
+    permission_classes = ()
 
-    def get_user_by_email(email):
+    def get_user_by_email(self, email):
         try:
             return User.objects.get(email=email, isActive=1)
         except (User.DoesNotExist, Exception) as e:
@@ -61,15 +38,15 @@ class AuthRegistration(APIView):
 
     """ Create new user """
     def post(self, request, format=None):
-        serializer = RegistrationSerializerMixin(data=request.data)
+        serializer = RegistrationSerializer(data=request.data)
         if not serializer.is_valid():
-            return  get_api_response(StatusCodes.Invalid_Field, errors=serializer.errors, httpStatusCode=status.HTTP_400_BAD_REQUEST)
+            return  get_400_error(serializer.errors)
 
         if request.user.is_authenticated:
             return get_api_response(StatusCodes.Already_Logged_In, httpStatusCode=status.HTTP_400_BAD_REQUEST)
 
         userExists = self.get_user_by_email(serializer.initial_data.get("email"))
-        if isinstance(userExists, Exception):
+        if not isinstance(userExists, Exception):
             return get_api_response(StatusCodes.User_with_Email_Exists, httpStatusCode=status.HTTP_400_BAD_REQUEST)
 
         username = serializer.validated_data["username"]
@@ -81,17 +58,17 @@ class AuthRegistration(APIView):
         phone_number = serializer.validated_data["phone_number"]
 
         user = User.objects.create_user(username, email=email, password=password)
-        profile = Profiles.customprofileManager.create_profile(user, phone_number, user_type)
+        profile = Profiles.customprofileManager.create_profile(user, phone_number=phone_number, user_type=user_type)
         
         try:
             activation_key = AuthMisc.generate_and_set_activation_key(user, AuthMisc.IS_PROFILE_ACTIVATION_KEY)
         except (ValidationError, Exception) as e:
             return get_api_server_error()
 
-        confirmation_link = AuthMisc.generate_confirmation_link(username, activation_key)
+        confirmation_link = AuthMisc.generate_confirmation_link(request, username, activation_key)
 
         try:
-            EmailHelper.send_signup_mail(user.email, profile.first_name, confirmation_link) 
+            EmailHelper.send_signup_mail(user.email, user.first_name, confirmation_link) 
         except (Exception) as e:
             return get_api_server_error()
 
@@ -99,7 +76,17 @@ class AuthRegistration(APIView):
 
     """ Delete a User """
     def delete(self, request, format=None):
-        pass
+        
+        if not request.user.is_authenticated:
+            return get_api_response(StatusCodes.Does_Not_Exist, httpStatusCode=status.HTTP_400_BAD_REQUEST)
+        
+        request.user.isActive = 0
+        profile = Profiles.objects.select_related("user").get(user=request.user)
+        profile.isActive = 0
+        profile.save()
+        request.user.save()
+
+        return get_api_success()
 
 class AuthConfirmEmail(UserObjectsMixin, APIView):
     '''
@@ -144,25 +131,75 @@ class AuthConfirmEmail(UserObjectsMixin, APIView):
 
         return get_api_success()
 
-class AuthResendConfirmationEmail(APIView):
+class AuthResendConfirmationEmail(UserObjectsMixin, APIView):
 
     def put(self, request, format=None):
-        pass
+        serializer = ResendConfirmEmailSerializer(data=request.data)
+
+        if not serializer.is_valid():
+            return  get_400_error(serializer.errors)
+
+        user = self.get_user_by_username(serializer.validated_data["username"])
+        if isinstance(user, Exception):
+            return get_api_response(StatusCodes.Does_Not_Exist, httpStatusCode=status.HTTP_400_BAD_REQUEST)
+        
+        if user.email_verified:
+            return get_api_response(StatusCodes.User_Already_Verified, httpStatusCode=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            activation_key = AuthMisc.generate_and_set_activation_key(user, AuthMisc.IS_PROFILE_ACTIVATION_KEY)
+        except (ValidationError, Exception) as e:
+            return get_api_server_error()
+
+        confirmation_link = AuthMisc.generate_confirmation_link(request, serializer.validated_data["username"], activation_key)
+
+        try:
+            EmailHelper.send_signup_mail(user.email, user.firstname, confirmation_link) 
+        except (Exception) as e:
+            return get_api_server_error()
+
+        return get_api_success()
+        
 
 class AuthForgotPassword(APIView):
     
     def put(self, request, format=None):
-        pass
+        serializer = ForgotPasswordSerializer(data=request.data)
+        
+        if not serializer.is_valid():
+            return get_400_error(serializer.errors)
     
-    
+        user = self.get_user_by_username(serializer.validated_data["username"])
+        if isinstance(user, Exception):
+            return get_api_response(StatusCodes.Does_Not_Exist, httpStatusCode=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            activation_key = AuthMisc.generate_and_set_activation_key(user, AuthMisc.IS_FORGOT_PASSWORD)
+        except (ValidationError, Exception) as e:
+            return get_api_server_error()
+        
+        reset_link = AuthMisc.generate_confirmation_link(serializer.validated_data["username"], activation_key)
+
+        try:
+            EmailHelper.send_reset_password_mail(user.email, user.firstname, reset_link) 
+        except (Exception) as e:
+            return get_api_server_error()
+
+        return get_api_success()
+        
 
 class AuthChangePassword(APIView):
 
     def put(self, request, format=None):
-        pass
-    
+        serializer = ChangePasswordSerializer(data=request.data)
 
-class AuthResetPassword(APIView):
-
-    def put(self, request, format=None):
-        pass
+        if not serializer.is_valid():
+            if not request.user.check_password(serializer.validated_data["old_password"]):
+                return get_api_response(AuthStatusCodes.Invalid_Credentials, httpStatusCode=status.HTTP_400_BAD_REQUEST)
+            
+            return get_400_error(serializer.errors)
+        
+        request.user.set_password(serializer.validated_data["password"])
+        request.user.save()
+        
+        return get_api_success()

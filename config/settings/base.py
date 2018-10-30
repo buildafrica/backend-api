@@ -1,4 +1,5 @@
 import os, datetime
+from .customSettings import *
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 SECRET_KEY = '7(ci5&0hu2r5-5@d$)j(9yssw$6+-4t!d4rp=#k&_3)4z-bm07'
@@ -15,14 +16,13 @@ INSTALLED_APPS = [
 
     # Requirements
     'corsheaders',
-    'rest_framework',
-    'rest_framework.authtoken',    
+    'rest_framework', 
 
-    'dcmpa',
-    'v1',
     'Authorization',
+    'dcmpa',
+    'Util',
+    'v1',
     'profiles'
-
 ]
 
 REST_FRAMEWORK = {
@@ -40,14 +40,10 @@ JWT_AUTH = {
 
 ALLOWED_HOSTS = []
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 

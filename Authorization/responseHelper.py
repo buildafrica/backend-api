@@ -19,6 +19,9 @@ class responseHelper:
 
     # Helper Methods
 
+    def api_400_error(self, errors):
+        return self.get_api_response(StatusCodes.Invalid_Field, errors=errors, httpStatusCode=status.HTTP_400_BAD_REQUEST)
+
     def api_server_error(self):
         return self.get_api_response(response_code=0, httpStatusCode=status.HTTP_500_INTERNAL_SERVER_ERROR)
 

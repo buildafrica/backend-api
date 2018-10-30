@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils import timezone
 
-from Authorization.models import BaseModel
+from Util.models import BaseModel
 
 class Case(BaseModel):
     """
