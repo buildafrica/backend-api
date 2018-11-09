@@ -14,7 +14,7 @@ Markdown==3.0.1
 MarkupSafe==1.0
 Pillow==5.3.0
 olefile==0.46
-psycopg2==2.7.5
+psycopg2==2.7.6
 Pygments==2.2.0
 pytz==2018.6
 requests==2.20.0
