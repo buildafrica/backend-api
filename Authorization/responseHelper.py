@@ -40,6 +40,7 @@ class StatusCodes:
     User_Already_Verified = 7
     Does_Not_Exist = 8
     User_with_Email_Exists = 9
+    User_with_Username_Exists = 10
 
 StatusCodesDescription = {
     StatusCodes.Server_Error: "A server error occurred",
@@ -52,6 +53,7 @@ StatusCodesDescription = {
     StatusCodes.User_Already_Verified:"The user is already verified",  
     StatusCodes.Does_Not_Exist:"No such user in the system",  
     StatusCodes.User_with_Email_Exists:"A user with this email already exists",  
+    StatusCodes.User_with_Username_Exists: "A user with this username already exists",
 }
 
 ResponseHelper = responseHelper(StatusCodesDescription)

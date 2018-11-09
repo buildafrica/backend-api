@@ -34,7 +34,13 @@ class AuthRegistration(APIView):
         try:
             return User.objects.get(email=email, isActive=1)
         except (User.DoesNotExist, Exception) as e:
-                return e
+            return e
+    
+    def get_user_by_username(self, username):
+        try: 
+            return User.objects.get(username=username, isActive=1)
+        except (User.DoesNotExist, Exception) as e:
+            return e        
 
     """ Create new user """
     def post(self, request, format=None):
@@ -45,9 +51,14 @@ class AuthRegistration(APIView):
         if request.user.is_authenticated:
             return get_api_response(StatusCodes.Already_Logged_In, httpStatusCode=status.HTTP_400_BAD_REQUEST)
 
-        userExists = self.get_user_by_email(serializer.initial_data.get("email"))
-        if not isinstance(userExists, Exception):
+        user = self.get_user_by_email(serializer.initial_data.get("email"))
+        if not isinstance(user, Exception):
             return get_api_response(StatusCodes.User_with_Email_Exists, httpStatusCode=status.HTTP_400_BAD_REQUEST)
+
+        user = self.get_user_by_username(serializer.validated_data["username"])
+        if not isinstance(user, Exception):
+            return get_api_response(StatusCodes.User_with_Username_Exists, httpStatusCode=status.HTTP_400_BAD_REQUEST)
+
 
         username = serializer.validated_data["username"]
         email = serializer.validated_data["email"]
@@ -66,7 +77,7 @@ class AuthRegistration(APIView):
             return get_api_server_error()
 
         confirmation_link = AuthMisc.generate_confirmation_link(request, username, activation_key)
-
+        
         try:
             EmailHelper.send_signup_mail(user.email, user.first_name, confirmation_link) 
         except (Exception) as e:
@@ -102,18 +113,21 @@ class AuthConfirmEmail(UserObjectsMixin, APIView):
     - Set key_used = true
     - return Success.
     '''
+    authentication_classes = ()
+    permission_classes = ()
 
     def put(self, request, format=None):
         serializer = ConfirmEmailSerializer(data=request.data)
 
         if not serializer.is_valid():
+            print("wow")
             return get_api_response(StatusCodes.Invalid_Field, errors=serializer.errors, httpStatusCode=status.HTTP_400_BAD_REQUEST)
 
         user_model = self.get_user_by_username(serializer.validated_data["username"])
         if isinstance(user_model, Exception):
             return get_api_response(StatusCodes.Does_Not_Exist, httpStatusCode=status.HTTP_400_BAD_REQUEST)
 
-        if user_model.email_verified:
+        if user_model.is_email_verified:
             return get_api_response(StatusCodes.User_Already_Verified, httpStatusCode=status.HTTP_400_BAD_REQUEST)
 
         if not user_model.activation_key_type == AuthMisc.IS_PROFILE_ACTIVATION_KEY:
@@ -122,10 +136,10 @@ class AuthConfirmEmail(UserObjectsMixin, APIView):
         if not user_model.activation_key == serializer.validated_data["activation_key"]:
             return get_api_response(StatusCodes.Invalid_Activation_Key, httpStatusCode=status.HTTP_400_BAD_REQUEST)
         
-        if timezone.now > user_model.activation_key_expires:
+        if timezone.now() > user_model.activation_key_expires:
             return get_api_response(StatusCodes.Activation_Key_Expired, httpStatusCode=status.HTTP_400_BAD_REQUEST)
 
-        user_model.email_verified = True
+        user_model.is_email_verified = True
         user_model.activation_key_used = True
         user_model.save()
 

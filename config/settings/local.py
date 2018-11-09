@@ -1,5 +1,5 @@
 from .base import *
-
+import psycopg2.extensions
 
 DEBUG = True
 
@@ -15,8 +15,11 @@ DATABASES = {
         'PASSWORD': os.environ['POSTGRES_USER_PASSWORD'],
         'HOST': 'localhost',
         'PORT': '5432',
-        }
-    }
+    },
+    'OPTIONS': {
+        'isolation_level': psycopg2.extensions.ISOLATION_LEVEL_READ_COMMITTED,
+    },
+}
 
 INSTALLED_APPS.append('debug_toolbar')
 
