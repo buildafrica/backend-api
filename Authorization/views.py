@@ -72,7 +72,7 @@ class AuthRegistration(APIView):
         profile = Profiles.customprofileManager.create_profile(user, phone_number=phone_number, user_type=user_type)
         
         try:
-            activation_key = AuthMisc.generate_and_set_activation_key(user, AuthMisc.IS_PROFILE_ACTIVATION_KEY)
+            activation_key = AuthMisc.generate_and_set_activation_key(user, key_type=AuthMisc.IS_PROFILE_ACTIVATION_KEY)
         except (ValidationError, Exception) as e:
             return get_api_server_error()
 
@@ -120,7 +120,6 @@ class AuthConfirmEmail(UserObjectsMixin, APIView):
         serializer = ConfirmEmailSerializer(data=request.data)
 
         if not serializer.is_valid():
-            print("wow")
             return get_api_response(StatusCodes.Invalid_Field, errors=serializer.errors, httpStatusCode=status.HTTP_400_BAD_REQUEST)
 
         user_model = self.get_user_by_username(serializer.validated_data["username"])
@@ -157,11 +156,11 @@ class AuthResendConfirmationEmail(UserObjectsMixin, APIView):
         if isinstance(user, Exception):
             return get_api_response(StatusCodes.Does_Not_Exist, httpStatusCode=status.HTTP_400_BAD_REQUEST)
         
-        if user.email_verified:
+        if user.is_email_verified:
             return get_api_response(StatusCodes.User_Already_Verified, httpStatusCode=status.HTTP_400_BAD_REQUEST)
         
         try:
-            activation_key = AuthMisc.generate_and_set_activation_key(user, AuthMisc.IS_PROFILE_ACTIVATION_KEY)
+            activation_key = AuthMisc.generate_and_set_activation_key(user, key_type=AuthMisc.IS_PROFILE_ACTIVATION_KEY)
         except (ValidationError, Exception) as e:
             return get_api_server_error()
 
