@@ -1,5 +1,5 @@
 from .base import *
-
+import psycopg2.extensions
 
 DEBUG = True
 
@@ -17,13 +17,16 @@ DATABASES = {
         'PORT': '5432',
         'TEST': {
             'NAME': os.environ['POSTGRES_DB_NAME']
-        }
+        },
+        'OPTIONS': {
+        'isolation_level': psycopg2.extensions.ISOLATION_LEVEL_READ_COMMITTED,
+        },
     }
 }
 
 INSTALLED_APPS.append('debug_toolbar')
 
-MIDDLEWARE_CLASSES.append('debug_toolbar.middleware.DebugToolbarMiddleware', )
+MIDDLEWARE.append('debug_toolbar.middleware.DebugToolbarMiddleware', )
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
