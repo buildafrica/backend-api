@@ -3,7 +3,7 @@ chardet==3.0.4
 coreapi==2.3.0
 coreschema==0.0.4
 Django==1.11.16
-django-cors-headers==2.0.2
+django-cors-headers==2.4.0
 djangorestframework==3.6.3
 idna==2.6
 itypes==1.1.0
