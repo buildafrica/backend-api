@@ -7,7 +7,7 @@ django-cors-headers==2.0.2
 djangorestframework==3.6.3
 idna==2.6
 itypes==1.1.0
-Jinja2==2.9.6
+Jinja2==2.10
 Markdown==2.6.8
 MarkupSafe==1.0
 olefile==0.44
