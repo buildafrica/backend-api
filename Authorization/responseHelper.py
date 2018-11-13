@@ -41,6 +41,7 @@ class StatusCodes:
     Does_Not_Exist = 8
     User_with_Email_Exists = 9
     User_with_Username_Exists = 10
+    User_Unaunthenticated = 11
 
 StatusCodesDescription = {
     StatusCodes.Server_Error: "A server error occurred",
@@ -54,6 +55,7 @@ StatusCodesDescription = {
     StatusCodes.Does_Not_Exist:"No such user in the system",  
     StatusCodes.User_with_Email_Exists:"A user with this email already exists",  
     StatusCodes.User_with_Username_Exists: "A user with this username already exists",
+    StatusCodes.User_Unaunthenticated: "User needs to be logged in",
 }
 
 ResponseHelper = responseHelper(StatusCodesDescription)

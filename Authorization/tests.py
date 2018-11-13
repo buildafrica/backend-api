@@ -11,7 +11,7 @@ from .misc import AuthMisc
 import pdb
 
 class AuthorizationTests(APITestCase):
-    tearDownRequired = False
+    userTearDownRequired = False
 
     @classmethod
     def setUpTestData(cls):
@@ -29,9 +29,9 @@ class AuthorizationTests(APITestCase):
     
     def tearDown(self):
         ''' Stuffs to do after every test '''
-        if self.tearDownRequired:
+        if self.userTearDownRequired:
             get_user_model().objects.all().delete()
-            self.tearDownRequired = False
+            self.userTearDownRequired = False
 
     def create_user(self):
         user = get_user_model().objects.create_user(self.username, email=self.email, password=self.password, first_name=self.first_name, last_name=self.last_name)
@@ -134,15 +134,61 @@ class AuthorizationTests(APITestCase):
 
     # Delete Account API
     def test_delete_account_unaunthenticated_should_fail(self):
-        pass
-    
-    def test_delete_account_aunthenticated_should_pass(self):
-        pass
+        response = self.client.delete(reverse("auth-delete-account"))
+
+        self.assertEqual(response.status_code, 400, "Delete account without logging - Improper status code")
+        self.assertEqual(response.json()["status"], StatusCodes.User_Unaunthenticated, "Delete account without logging - Improper status message")
     
     def test_delete_deleted_account_should_fail(self):
+        # TODO
         pass
     
+    def test_delete_account_authenticated_should_pass(self):
+        user = self.create_user()
+        self.client.force_authenticate(user = user)
+
+        user.isActive = 0
+        user.profile.isActive = 0
+        user.save()
+        user.profile.save()
+
+        response = self.client.delete(reverse("auth-delete-account"))
+        self.assertEqual(response.status_code, 200, "Delete account not successful - Improper status code")
+        self.assertEqual(response.json()["status"], StatusCodes.Success, "Delete account not successful - Improper status message")
+
+        self.client.force_authenticate(user = None)
+
     # TODO: Resend Confirm Email API
     
-    # TODO: Forgot Password API
-    # TODO: Change Password API
+    def test_forgot_password_unaunthenticated_should_pass(self):
+        pass
+
+    def test_change_password_unaunthenticated_should_fail(self):
+        user = self.create_user()
+        new_password = "newpassword1"
+
+        response = self.client.put(reverse("auth-change-password"), data={
+            "old_password": self.password,
+            "password": new_password
+        }, format= "json")
+
+        user.refresh_from_db()
+        self.assertEqual(response.status_code, 401, "Change password failed - Improper status code")
+        self.assertFalse(user.password == new_password, "Password changed wrongly.")
+
+    def test_change_password_aunthenticated_should_pass(self):
+        user = self.create_user()
+        self.client.force_authenticate(user = user)
+        new_password = "newpassword1"
+
+        response = self.client.put(reverse("auth-change-password"), data={
+            "old_password": self.password,
+            "password": new_password
+        }, format="json")
+
+        user.refresh_from_db()
+        self.assertEqual(response.status_code, 200, "Change password failed - Improper status code")
+        self.assertEqual(response.json()["status"], StatusCodes.Success, "Change password failed - Improper status message")
+        self.assertFalse(user.password == new_password, "Password changed wrongly.")
+
+        self.client.force_authenticate(user = None)

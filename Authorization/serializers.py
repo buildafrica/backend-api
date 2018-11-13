@@ -38,7 +38,7 @@ class ConfirmEmailSerializer(serializers.ModelSerializer):
 class ResendConfirmEmailSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = settings.AUTH_USER_MODEL
+        model = get_user_model()
         fields = ("username")
         extra_kwargs = {
             "username": {
@@ -49,7 +49,7 @@ class ResendConfirmEmailSerializer(serializers.ModelSerializer):
 class ForgotPasswordSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = settings.AUTH_USER_MODEL
+        model = get_user_model()
         fields = ("username")
         extra_kwargs = {
             "username": {
@@ -61,10 +61,5 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
     old_password = serializers.CharField(max_length=128)
     
     class Meta:
-        model = settings.AUTH_USER_MODEL
+        model = get_user_model()
         fields = ('old_password','password')
-        extra_kwargs = {
-            "username": {
-                "validators": [UnicodeUsernameValidator()],
-            }
-        }

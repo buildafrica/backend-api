@@ -89,10 +89,10 @@ class AuthRegistration(APIView):
     def delete(self, request, format=None):
         
         if not request.user.is_authenticated:
-            return get_api_response(StatusCodes.Does_Not_Exist, httpStatusCode=status.HTTP_400_BAD_REQUEST)
+            return get_api_response(StatusCodes.User_Unaunthenticated, httpStatusCode=status.HTTP_400_BAD_REQUEST)
         
         request.user.isActive = 0
-        profile = Profiles.objects.select_related("user").get(user=request.user)
+        profile = request.user.profile #Profiles.objects.select_related("user").get(user=request.user)
         profile.isActive = 0
         profile.save()
         request.user.save()
