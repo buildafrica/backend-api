@@ -24,6 +24,6 @@ ENV POSTGRES_USER_PASSWORD=$passwd
 RUN python3 manage.py makemigrations && python3 manage.py migrate
 RUN python3 manage.py test --keepdb
 
-EXPOSE 8080
+EXPOSE 8080 5432
 
 CMD [ "python3", "manage.py", "runserver", "0.0.0.0:8080" ]
