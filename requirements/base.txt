@@ -10,7 +10,7 @@ itypes==1.1.0
 Jinja2==2.9.6
 Markdown==2.6.8
 MarkupSafe==1.0
-olefile==0.44
+olefile==0.46
 Pillow==4.1.1
 psycopg2==2.7.3.2
 Pygments==2.2.0
