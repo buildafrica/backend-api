@@ -6,6 +6,7 @@ python:
 
 services:
     - docker
+    - postgresql
 
 branches:
     only:
