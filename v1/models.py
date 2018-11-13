@@ -26,7 +26,6 @@ class Case(BaseModel):
             To save last sighted date of missing person
     ``person_photo``
             Field to upload the pic of a missing person
-
     TODO:
     Add phone number validator
     """
