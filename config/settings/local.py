@@ -13,7 +13,7 @@ DATABASES = {
         'NAME': os.environ['POSTGRES_DB_NAME'],
         'USER': os.environ['POSTGRES_DB_USER'],
         'PASSWORD': os.environ['POSTGRES_USER_PASSWORD'],
-        'HOST': 'postgreslocalhost', 
+        'HOST': 'localhost', 
         'PORT': '5432',
     },
     'OPTIONS': {
