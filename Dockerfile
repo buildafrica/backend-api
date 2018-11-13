@@ -22,7 +22,7 @@ ENV POSTGRES_USER_PASSWORD=$passwd
 
 # Run make migrations, migrate & run tests
 RUN python3 manage.py makemigrations && python3 manage.py migrate
-RUN python3 manage.py test --keepdb
+RUN python3 manage.py test
 
 EXPOSE 8080 5432
 
