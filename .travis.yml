@@ -16,6 +16,10 @@ branches:
     only:
         - master
 
+
+before_script:
+    - cat /etc/postgresql/10/main/postgresql.conf
+
 jobs:
     include:
         - stage: "Test"
