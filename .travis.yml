@@ -2,5 +2,9 @@ language: python
 python:
   - "3.6"
 
+services:
+  - postgresql
+
 script:
+  - python manage.py makemigrations
   - python manage.py test
