@@ -14,7 +14,7 @@ DATABASES = {
         'USER': "postgres",
         'PASSWORD': "",
         'HOST': 'localhost', 
-        'PORT': '5432',
+        'PORT': '',
     },
     'OPTIONS': {
         'isolation_level': psycopg2.extensions.ISOLATION_LEVEL_READ_COMMITTED,
