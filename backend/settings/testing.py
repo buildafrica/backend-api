@@ -10,7 +10,7 @@ INTERNAL_IPS = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': "Dcmpa",
+        'NAME': "travis_ci_test",
         'USER': "postgres",
         'PASSWORD': "",
         'HOST': 'localhost', 
