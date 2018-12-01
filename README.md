@@ -1,4 +1,4 @@
-# Missing Persons Archive Backend
+# Missing Persons Archive Backend [![Build Status](https://travis-ci.com/dcmpa/backend.svg?branch=master)](https://travis-ci.com/dcmpa/backend)
 
 # Project Setup 
 
