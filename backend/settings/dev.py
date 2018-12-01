@@ -1,25 +1,23 @@
 from .base import *
 import psycopg2.extensions
+import dj_database_url
 
 DEBUG = True
+
+ALLOWED_HOSTS.append("https://mpa-dev.herokuapp.com/")
 
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ['POSTGRES_DB_NAME'],
-        'USER': os.environ['POSTGRES_DB_USER'],
-        'PASSWORD': os.environ['POSTGRES_USER_PASSWORD'],
-        'HOST': 'localhost', 
-        'PORT': '5432',
-    },
+    'default': {},
     'OPTIONS': {
         'isolation_level': psycopg2.extensions.ISOLATION_LEVEL_READ_COMMITTED,
     },
 }
+
+DATABASES["default"] = dj_database_url.config(conn_max_age=600)
 
 INSTALLED_APPS.append('debug_toolbar')
 
