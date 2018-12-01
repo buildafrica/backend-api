@@ -4,7 +4,7 @@ import dj_database_url
 
 DEBUG = True
 
-ALLOWED_HOSTS.append("https://mpa-dev.herokuapp.com/")
+ALLOWED_HOSTS.append("mpa-dev.herokuapp.com")
 
 INTERNAL_IPS = [
     '127.0.0.1',
