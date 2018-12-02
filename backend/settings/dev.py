@@ -4,7 +4,7 @@ import dj_database_url
 
 DEBUG = True
 
-ALLOWED_HOSTS.append("mpa-dev.herokuapp.com")
+ALLOWED_HOSTS.extend(("localhost", "mpa-dev.herokuapp.com"))
 
 INTERNAL_IPS = [
     '127.0.0.1',
@@ -24,7 +24,10 @@ INSTALLED_APPS.append('debug_toolbar')
 MIDDLEWARE.append('debug_toolbar.middleware.DebugToolbarMiddleware', )
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles/')
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, "static"),
+)
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'

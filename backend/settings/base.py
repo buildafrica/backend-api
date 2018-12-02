@@ -1,6 +1,8 @@
 import os, datetime
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 SECRET_KEY = '7(ci5&0hu2r5-5@d$)j(9yssw$6+-4t!d4rp=#k&_3)4z-bm07'
 
 INSTALLED_APPS = [        
