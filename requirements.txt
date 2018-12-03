@@ -18,7 +18,7 @@ olefile==0.44
 Pillow==4.1.1
 psycopg2==2.7.3.2
 Pygments==2.2.0
-PyJWT==1.6.4
+PyJWT==1.7.0
 pytz==2017.3
 requests==2.18.4
 sqlparse==0.2.4
