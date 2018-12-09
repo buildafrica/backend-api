@@ -10,12 +10,10 @@ class StatusCodesDescription(BaseStatusCodesDescription):
     }
 
     def __getitem__(self, key):
-        msg = super().__getitem__(key)
-
-        if msg is None:
-            msg = self.descriptors[key]
-            if msg is None:
-                raise IndexError("Invalid Status Code")
+        try:
+            return self.descriptors[key]
+        except KeyError as e:
+            return BaseStatusCodesDescription.__dict__['desc'][key]
 
 
 ResponseHelper = responseHelper(StatusCodes, StatusCodesDescription)

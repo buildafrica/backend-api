@@ -12,4 +12,9 @@ class ProfileInfoSerializer(serializers.ModelSerializer):
                     'state', 'gender', 'country', 'phone_number', 'profile_pic')
 
 class ProfilePictureSerializer(serializers.Serializer):
-    file = serializers.ImageField(max_length= allow_empty_file=False,)
+    file = serializers.ImageField(max_length=None, allow_empty_file=False, use_url=True)
+
+class SaveProfilePictureSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profiles
+        fields = ('profile_pic',)

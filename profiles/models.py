@@ -21,3 +21,5 @@ class Profiles(BaseModel):
     profile_pic = models.URLField(null=True)
 
     customprofileManager = ProfilesManager()
+
+    

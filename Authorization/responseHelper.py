@@ -24,7 +24,9 @@ class responseHelper:
         return self.get_api_response(self.status_codes.Invalid_Field, errors=errors, httpStatusCode=status.HTTP_400_BAD_REQUEST)
 
     def api_server_error(self):
-        return self.get_api_response(response_code=0, httpStatusCode=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        response_code = 0
+        response_data = {"status": response_code, "description": self.description_object[response_code], "data":{}, "errors":{}}
+        return Response(data = response_data, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def api_success(self):
         return self.get_api_response(response_code=1)
@@ -42,8 +44,6 @@ class BaseStatusCodesDescription:
         BaseStatusCodes.Invalid_Field:"Some fields are invalid"
     }
 
-    def __getitem__(self, key):
-        return self.descriptors[key]
 
 class StatusCodes(BaseStatusCodes):
     Invalid_Field = 2
@@ -71,12 +71,10 @@ class StatusCodesDescription(BaseStatusCodesDescription):
     }
 
     def __getitem__(self, key):
-        msg = super().__getitem__(key)
-
-        if msg is None:
-            msg = self.descriptors[key]
-            if msg is None:
-                raise IndexError("Invalid Status Code")
+        try:
+            return self.descriptors[key]
+        except KeyError as e:
+            return BaseStatusCodesDescription.__dict__['descriptors'][key]
             
 
 ResponseHelper = responseHelper(StatusCodes, StatusCodesDescription)
