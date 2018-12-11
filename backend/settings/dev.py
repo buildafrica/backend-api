@@ -1,6 +1,7 @@
 from .base import *
 import psycopg2.extensions
 import dj_database_url
+import cloudinary
 
 DEBUG = True
 
@@ -17,9 +18,27 @@ DATABASES = {
     },
 }
 
-DATABASES["default"] = dj_database_url.config(conn_max_age=600)
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': "Dcmpa",
+        'USER': "postgres",
+        'PASSWORD': "postgres",
+        'HOST': 'localhost'
+    },
+    'OPTIONS': {
+        'isolation_level': psycopg2.extensions.ISOLATION_LEVEL_READ_COMMITTED,
+    },
+}
 
 INSTALLED_APPS.append('debug_toolbar')
+
+# Cloudinary Configurations.
+cloudinary.config( 
+  cloud_name = os.getenv("CLOUD_NAME"), 
+  api_key = os.getenv("CLOUDINARY_API_KEY"), 
+  api_secret = os.getenv("CLOUDINARY_API_SECRET") 
+)
 
 MIDDLEWARE.append('debug_toolbar.middleware.DebugToolbarMiddleware', )
 
@@ -30,5 +49,5 @@ STATICFILES_DIRS = (
 )
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+# Cloudinary Media Url 
+MEDIA_URL = 'https://res.cloudinary.com/thehub/'

@@ -12,6 +12,7 @@ class Profiles(BaseModel):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name="profile", on_delete=models.CASCADE)
     phone_number = models.CharField(max_length=11, validators=[RegexValidator(regex='^\d{11}$')])
     user_type = models.CharField(max_length=10, null=False)
+    address = models.TextField(max_length=100, null=True)
     country = models.CharField(max_length=50, null=True)
     state = models.CharField(max_length=50, null=True)
     gender = models.CharField(max_length=6, null=True)
@@ -20,3 +21,5 @@ class Profiles(BaseModel):
     profile_pic = models.URLField(null=True)
 
     customprofileManager = ProfilesManager()
+
+    

@@ -22,8 +22,7 @@ from rest_framework.documentation import include_docs_urls
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('Authorization.urls'), name='auth'),
-    #path('profiles/', include('profiles.urls'), name='profiles')
-
+    path('profiles/', include('profiles.urls'), name='profiles'),
     path('docs/', include_docs_urls(title='Dcmpa API', authentication_classes=[], permission_classes=[]))
 ]
 

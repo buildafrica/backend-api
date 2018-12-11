@@ -11,17 +11,14 @@ from rest_framework.views import APIView
 
 from .serializers import ( RegistrationSerializer, ConfirmEmailSerializer, ResendConfirmEmailSerializer,
                         ForgotPasswordSerializer, ChangePasswordSerializer )
-from .responseHelper import ResponseHelper, StatusCodes
+from .responseHelper import (ResponseHelper, StatusCodes, get_api_response,
+                            get_api_server_error, get_api_success, get_400_error)
 from .EmailHelper import EmailHelper
 from .mixins import UserObjectsMixin
 from .misc import AuthMisc
 
 from profiles.models import Profiles
 
-get_api_response = ResponseHelper.get_api_response
-get_api_server_error = ResponseHelper.api_server_error
-get_api_success = ResponseHelper.api_success
-get_400_error = ResponseHelper.api_400_error
 User = get_user_model()
 
 # Create your views here.
