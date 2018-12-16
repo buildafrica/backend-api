@@ -25,4 +25,4 @@ sqlparse==0.2.4
 uritemplate==3.0.0
 urllib3==1.22
 whitenoise==3.3.0
-cloudinary==1.10.0
+cloudinary==1.15.0
