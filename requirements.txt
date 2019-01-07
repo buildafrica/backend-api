@@ -19,7 +19,7 @@ Pillow==4.1.1
 psycopg2==2.7.3.2
 Pygments==2.2.0
 PyJWT==1.6.4
-pytz==2017.3
+pytz==2018.9
 requests==2.20.1
 sqlparse==0.2.4
 uritemplate==3.0.0
