@@ -12,3 +12,4 @@ node_modules
 !**/migrations/__init__.py
 .idea/
 dcmpa/
+.env
