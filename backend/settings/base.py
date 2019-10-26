@@ -18,10 +18,12 @@ INSTALLED_APPS = [
     # Requirements
     'corsheaders',
     'rest_framework', 
+     'imagekit',
 
     'Authorization',
     'Util',
-    'profiles'
+    'profiles',
+    'missing'
 ]
 
 REST_FRAMEWORK = {
@@ -30,7 +32,8 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-    ),
+    ),   
+    
 }
 
 JWT_AUTH = {
@@ -47,10 +50,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     # Must have in order to use the admin:
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware'
-
 ]
 
 ROOT_URLCONF = 'backend.urls'
