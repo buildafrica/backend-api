@@ -16,7 +16,9 @@
 - Alternately, you can fork this repo and then clone your fork.
 - Change to the backend directory you just cloned: 
   `cd backend`
-
+- Create a directory for your static files (normally it will be ignored by git)
+  `mkdir backend/staticfiles`
+    
 ## Set up a virtual environment with a python3.6 interpreter(Ubuntu):
 ```
 virtualenv --python={PATH_TO_PYTHON3.6} dcmpa
@@ -66,11 +68,19 @@ If you get an error, you may need to open the `requiremnts.txt` file and replace
   `python manage.py createsuperuser`
 
   - You will be prompted by Django to create a super user, and you can use these credentials to log into the admin interface (more in next step)
+  
 
-## Start django server :
-```
-python manage.py runserver
-```
+## Start django:
+- collect static, so you can run the django admin. You will run this command when you add or update static files:
+  `python manage.py collectstatic`
+
+- Run the server
+  `python manage.py runserver`
+
+- Navigate to the django admin:
+  `http://localhost:8000/admin/`
+  If you see a login screen, everything worked!
+
 
 ## Deployment
 - master branch:- staging branch
